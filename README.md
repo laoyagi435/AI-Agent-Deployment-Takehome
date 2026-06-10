@@ -60,6 +60,7 @@ The final story can be narrated using OpenAI's TTS (`tts-1`, voice `nova`) and s
 
 ## Research Basis
 Source: https://www.darcypattison.com/writing/picture-books/bedtime-story/
+
 The prompting strategy is grounded in findings summarized by **Darcy Patterson** on what makes bedtime stories effective:
 
 - **Carl-Johan Ehrlin** (*The Rabbit Who Wants to Fall Asleep*) — embedded sleep keywords and phonetically soft language as active sleep-induction tools
