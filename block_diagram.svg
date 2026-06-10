@@ -1,0 +1,118 @@
+<svg viewBox="0 0 900 720" xmlns="http://www.w3.org/2000/svg" font-family="Georgia, serif">
+
+  <!-- Background -->
+  <rect width="900" height="720" fill="#f9f6f0" rx="12"/>
+
+  <!-- Title -->
+  <text x="450" y="38" text-anchor="middle" font-size="18" font-weight="bold" fill="#2c2c3e">🌙 Bedtime Story Generator — System Architecture</text>
+
+  <!-- ───── USER block ───── -->
+  <rect x="370" y="60" width="160" height="54" rx="10" fill="#d6eaff" stroke="#4a90d9" stroke-width="2"/>
+  <text x="450" y="83" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a3a5c">USER</text>
+  <text x="450" y="101" text-anchor="middle" font-size="11" fill="#1a3a5c">Grade · Genre · Interests · Prompt</text>
+
+  <!-- Arrow: User → Generator -->
+  <line x1="450" y1="114" x2="450" y2="148" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="458" y="135" font-size="10" fill="#555">story request</text>
+
+  <!-- ───── GENERATOR block ───── -->
+  <rect x="290" y="148" width="320" height="90" rx="10" fill="#e8f5e9" stroke="#4caf50" stroke-width="2"/>
+  <text x="450" y="170" text-anchor="middle" font-size="13" font-weight="bold" fill="#1b5e20">STORY GENERATOR</text>
+  <text x="450" y="188" text-anchor="middle" font-size="10" fill="#2e7d32">Story arc · Phonetic softness · Sleep keywords</text>
+  <text x="450" y="203" text-anchor="middle" font-size="10" fill="#2e7d32">Age-specific elements · Warm ending prompt</text>
+  <text x="450" y="218" text-anchor="middle" font-size="10" fill="#2e7d32">→ calls GPT-3.5-turbo (temp 0.25)</text>
+
+  <!-- Arrow: Generator → Draft -->
+  <line x1="450" y1="238" x2="450" y2="268" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="458" y="257" font-size="10" fill="#555">draft story</text>
+
+  <!-- ───── JUDGE LOOP box ───── -->
+  <rect x="140" y="268" width="620" height="240" rx="12" fill="none" stroke="#e57373" stroke-width="2" stroke-dasharray="6,3"/>
+  <text x="163" y="288" font-size="11" font-style="italic" fill="#c62828">Judge Loop (max 3 attempts)</text>
+
+  <!-- JUDGE block -->
+  <rect x="290" y="296" width="320" height="100" rx="10" fill="#fff3e0" stroke="#fb8c00" stroke-width="2"/>
+  <text x="450" y="318" text-anchor="middle" font-size="13" font-weight="bold" fill="#7f3f00">LLM JUDGE</text>
+  <text x="450" y="336" text-anchor="middle" font-size="10" fill="#7f3f00">Scores 7 criteria (1–5 each):</text>
+  <text x="450" y="351" text-anchor="middle" font-size="10" fill="#7f3f00">age · calmness · phonetics · sleep language</text>
+  <text x="450" y="366" text-anchor="middle" font-size="10" fill="#7f3f00">story arc · language dev · warm ending</text>
+  <text x="450" y="381" text-anchor="middle" font-size="10" fill="#7f3f00">→ calls GPT-3.5-turbo (temp 0.0)</text>
+
+  <!-- Arrow: Judge → decision diamond -->
+  <line x1="450" y1="396" x2="450" y2="426" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Decision diamond -->
+  <polygon points="450,426 510,456 450,486 390,456" fill="#fce4ec" stroke="#c2185b" stroke-width="2"/>
+  <text x="450" y="452" text-anchor="middle" font-size="11" font-weight="bold" fill="#880e4f">All scores</text>
+  <text x="450" y="468" text-anchor="middle" font-size="11" font-weight="bold" fill="#880e4f">≥ 4?</text>
+
+  <!-- PASS arrow (right, out of loop) -->
+  <line x1="510" y1="456" x2="640" y2="456" stroke="#4caf50" stroke-width="2" marker-end="url(#arrowGreen)"/>
+  <text x="545" y="448" font-size="10" fill="#2e7d32" font-weight="bold">PASS</text>
+
+  <!-- FAIL arrow: down to reviser -->
+  <line x1="450" y1="486" x2="450" y2="496" stroke="#e53935" stroke-width="2" marker-end="url(#arrowRed)"/>
+  <text x="458" y="493" font-size="10" fill="#c62828" font-weight="bold">FAIL</text>
+
+  <!-- REVISER block -->
+  <rect x="290" y="496" width="320" height="54" rx="10" fill="#f3e5f5" stroke="#9c27b0" stroke-width="2"/>
+  <text x="450" y="518" text-anchor="middle" font-size="13" font-weight="bold" fill="#4a148c">TARGETED REVISER</text>
+  <text x="450" y="536" text-anchor="middle" font-size="10" fill="#4a148c">Receives specific issue list from judge → rewrites</text>
+
+  <!-- Reviser loop back arrow -->
+  <path d="M290,523 Q180,523 180,396 Q180,296 290,320" fill="none" stroke="#9c27b0" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arrowPurple)"/>
+  <text x="148" y="415" font-size="10" fill="#6a1b9a" transform="rotate(-90,148,415)">retry (attempt n+1)</text>
+
+  <!-- ───── FINAL STORY block ───── -->
+  <rect x="560" y="420" width="160" height="54" rx="10" fill="#e8f5e9" stroke="#4caf50" stroke-width="2"/>
+  <text x="640" y="443" text-anchor="middle" font-size="13" font-weight="bold" fill="#1b5e20">FINAL STORY</text>
+  <text x="640" y="461" text-anchor="middle" font-size="10" fill="#2e7d32">+ quality score display</text>
+
+  <!-- Arrow: Final Story → User Display -->
+  <line x1="640" y1="474" x2="640" y2="564" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- ───── USER DISPLAY block ───── -->
+  <rect x="560" y="564" width="160" height="54" rx="10" fill="#d6eaff" stroke="#4a90d9" stroke-width="2"/>
+  <text x="640" y="587" text-anchor="middle" font-size="13" font-weight="bold" fill="#1a3a5c">USER READS</text>
+  <text x="640" y="605" text-anchor="middle" font-size="10" fill="#1a3a5c">Story printed to terminal</text>
+
+  <!-- Arrow: User Display → Feedback? -->
+  <line x1="560" y1="591" x2="490" y2="591" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="498" y="584" font-size="10" fill="#555">feedback?</text>
+
+  <!-- ───── USER FEEDBACK block ───── -->
+  <rect x="290" y="564" width="200" height="54" rx="10" fill="#fff9c4" stroke="#f9a825" stroke-width="2"/>
+  <text x="390" y="587" text-anchor="middle" font-size="13" font-weight="bold" fill="#5f3700">USER FEEDBACK</text>
+  <text x="390" y="605" text-anchor="middle" font-size="10" fill="#5f3700">Optional plain-language revision request</text>
+
+  <!-- Arrow: Feedback → Generator (re-enter loop) -->
+  <path d="M390,618 Q390,660 450,660 Q700,660 700,523 Q700,440 720,440" fill="none" stroke="#f9a825" stroke-width="1.5" stroke-dasharray="5,3"/>
+  <!-- label -->
+  <text x="530" y="673" font-size="10" fill="#e65100">re-enters judge loop after revision</text>
+
+  <!-- ───── AUDIO block ───── -->
+  <rect x="60" y="564" width="180" height="54" rx="10" fill="#ede7f6" stroke="#7e57c2" stroke-width="2"/>
+  <text x="150" y="587" text-anchor="middle" font-size="13" font-weight="bold" fill="#311b92">TTS AUDIO (opt.)</text>
+  <text x="150" y="605" text-anchor="middle" font-size="10" fill="#311b92">tts-1 · voice: nova → MP3</text>
+
+  <!-- Arrow: User Reads → Audio -->
+  <line x1="560" y1="608" x2="240" y2="608" stroke="#7e57c2" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arrowPurple)"/>
+  <text x="370" y="622" font-size="10" fill="#4527a0">if user selects "Listen"</text>
+
+  <!-- ───── Arrow markers ───── -->
+  <defs>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#555"/>
+    </marker>
+    <marker id="arrowGreen" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#4caf50"/>
+    </marker>
+    <marker id="arrowRed" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#e53935"/>
+    </marker>
+    <marker id="arrowPurple" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#9c27b0"/>
+    </marker>
+  </defs>
+
+</svg>
